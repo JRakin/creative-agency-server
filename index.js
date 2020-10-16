@@ -118,9 +118,11 @@ client.connect((err) => {
   });
 
   app.post('/isAdmin', (req, res) => {
-    adminCollection.find({ email: req.body }).toArray((err, documents) => {
-      res.send(documents.length > 0);
-    });
+    adminCollection
+      .find({ email: req.body.email })
+      .toArray((err, documents) => {
+        res.send(documents);
+      });
   });
   console.log('connected');
 });
