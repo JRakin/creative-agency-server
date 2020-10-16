@@ -85,6 +85,19 @@ client.connect((err) => {
     });
   });
 
+  app.patch('/updateOrder/:id', (req, res) => {
+    orderCollection
+      .updateOne(
+        { _id: ObjectId(req.params.id) },
+        {
+          $set: { status: req.body.status },
+        }
+      )
+      .then((result) => {
+        res.send(result.modifiedCount > 0);
+      });
+  });
+
   app.post('/addReview', (req, res) => {
     reviewCollection.insertOne(req.body).then((result) => {
       res.send(result.insertedCount > 0);
